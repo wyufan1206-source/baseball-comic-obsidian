@@ -1,6 +1,6 @@
 # baseball-comic-obsidian（課程協作 Repo）
 
-本 Repo 用於「台灣棒球漫畫生成」五日課程的資料協作。  
+本 Repo 用於『愛（AI）看野球番：以生成式AI打造「棒球漫畫」互動導覽』五日課程的資料協作。課程moodle: https://moodle.ncku.edu.tw/course/view.php?id=55256
 每位同學會在自己的筆電上使用 Obsidian 整理資料，並透過 GitHub Desktop 提交到本 Repo，最後由課程網站（GitHub Pages）讀取 `data/` 內資料，協助產生可餵給 ChatGPT / Gemini 的漫畫故事腳本。
 
 ---
@@ -24,13 +24,13 @@
 請確認你已安裝下列軟體（Day 2 會用到）：
 
 必裝：
-1. Git
-2. GitHub Desktop
-3. Visual Studio Code（VS Code）
-4. Python（建議 3.9 以上）
+1. Git: https://git-scm.com/install/windows
+2. GitHub Desktop: https://desktop.github.com/download/ 
+3. Visual Studio Code（VS Code）: https://code.visualstudio.com/Download
+4. Python: https://www.python.org/ftp/python/3.14.2/python-3.14.2-amd64.exe
 
 選裝（彩蛋）：
-5. antigravity（optional）
+5. antigravity（optional）: https://antigravity.google/
 
 ---
 
@@ -112,7 +112,7 @@ data/students/你的學號/
 
 ---
 
-### Step 6｜Commit + Push + PR
+### Step 6｜Commit + Push + Pull Request(PR)
 
 1. 回到 GitHub Desktop
 2. Summary 輸入：`Add dataset for 你的學號`
