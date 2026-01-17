@@ -1,0 +1,9 @@
+# Obsidian personal/workspace state
+**/.obsidian/workspace.json
+**/.obsidian/cache/
+**/.obsidian/graph.json
+**/.obsidian/hotkeys.json
+
+# OS junk
+.DS_Store
+Thumbs.db

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>台灣棒球漫畫腳本產生器</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", sans-serif; margin: 24px; line-height: 1.5; }
+    h1, h2 { margin: 0.2em 0; }
+    .muted { color: #666; }
+    .error { color: #b00020; }
+    .box { border: 1px solid #ddd; border-radius: 10px; padding: 12px 14px; margin: 12px 0; }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    input[type="text"] { width: min(720px, 100%); padding: 10px 12px; border: 1px solid #ccc; border-radius: 8px; }
+    button { padding: 8px 10px; border: 1px solid #ccc; background: #fff; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #f6f6f6; }
+    textarea { width: min(980px, 100%); min-height: 280px; padding: 10px 12px; border: 1px solid #ccc; border-radius: 8px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    hr { margin: 28px 0; border: 0; border-top: 1px solid #eee; }
+    .pill { display: inline-block; padding: 2px 8px; border: 1px solid #ddd; border-radius: 999px; margin-right: 6px; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    @media (min-width: 980px) { .grid { grid-template-columns: 1fr 1fr; } }
+    .card { border: 1px solid #eee; border-radius: 10px; padding: 10px 12px; }
+    .small { font-size: 0.92em; }
+    ul { padding-left: 18px; }
+    code { background: #f6f6f6; padding: 0 4px; border-radius: 4px; }
+    label { cursor: pointer; }
+    .providers { max-height: 260px; overflow: auto; border: 1px solid #eee; border-radius: 10px; padding: 10px 12px; }
+    .providers li { margin: 6px 0; }
+  </style>
+</head>
+
+<body>
+  <h1>台灣棒球漫畫腳本產生器</h1>
+  <p class="muted">
+    本頁會從 GitHub <code>main</code> 分支掃描 <code>data/students/&lt;10碼學號&gt;/index.json</code> 載入資料。<br>
+    提示：底部「資料提供者」清單出現你的學號/姓名，代表你的資料已進入 <code>main</code>（通常表示 PR 已合併）。
+  </p>
+
+  <div class="box">
+    <p><strong>目前狀態</strong></p>
+    <div id="status">初始化中…</div>
+  </div>
+
+  <div class="box">
+    <h2>查詢</h2>
+    <div class="row">
+      <input id="q" type="text" placeholder="輸入關鍵字（例：伸卡球 勵志 再見安打 兄弟 熱血）" />
+      <button id="btnSearch">搜尋</button>
+      <button id="btnClear">清除</button>
+    </div>
+    <p class="muted small">
+      預設搜尋全班資料。你也可以在頁面底部勾選特定資料提供者後再搜尋。
+    </p>
+    <div id="scopeInfo" class="muted small"></div>
+  </div>
+
+  <div class="grid">
+    <div class="box">
+      <h2>搜尋結果</h2>
+      <div id="resultsSummary" class="muted small"></div>
+      <div id="results"></div>
+    </div>
+
+    <div class="box">
+      <h2>漫畫腳本輸出</h2>
+      <p class="muted small">
+        建議流程：搜尋 → 勾選幾個「人物 / 事件 / 術語」→ 產生腳本 → 複製貼到 ChatGPT / Gemini。
+      </p>
+      <div class="row">
+        <button id="btnGenerate">產生腳本（Markdown）</button>
+        <button id="btnCopy">複製</button>
+      </div>
+      <textarea id="scriptOut" placeholder="這裡會輸出可直接貼給模型的腳本"></textarea>
+      <p class="muted small">
+        注意：請避免輸出或要求生成未授權商標/隊徽；以「描述性元素」替代。
+      </p>
+    </div>
+  </div>
+
+  <hr>
+
+  <section id="providers-section">
+    <h2>資料提供者（可勾選篩選）</h2>
+    <p class="muted small">
+      此列表以 <code>main</code> 分支實際存在的資料集為準。若你的學號尚未出現，通常表示 PR 尚未合併或資料未放在正確路徑。
+    </p>
+
+    <div class="row">
+      <button id="btnAll">全選</button>
+      <button id="btnNone">全不選</button>
+      <button id="btnInvert">反選</button>
+      <span id="providersNote" class="muted small"></span>
+    </div>
+
+    <div class="providers">
+      <ul id="providersList"></ul>
+    </div>
+  </section>
+
+  <script src="./app.js"></script>
+</body>
+</html>
