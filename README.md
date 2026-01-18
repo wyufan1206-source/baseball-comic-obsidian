@@ -5,7 +5,9 @@
 
 ---
 
-## Day 2 你要完成什麼？這是一個每個人都有的作業，老師會依完成度來評分，**不是有完成就滿分**，會看你提供的資料量，完整度，也包含你在上傳時commit的註解，是否有違反協作的規定等等(如修改到其他同學的資料)。
+## Day 2 你要完成什麼？
+
+這是一個每個人都有的作業，老師會依完成度來評分，**不是有完成就滿分**，會看你提供的資料量，完整度，也包含你在上傳時commit的註解，是否有違反協作的規定等等(如修改到其他同學的資料)。
 
 1. 用 GitHub Desktop **Clone** 本 Repo https://github.com/ycshu/baseball-comic-obsidian.git 到你的電腦
 2. 建立你的個人分支（branch）：`data-你的學號`
@@ -23,14 +25,14 @@
 
 請確認你已安裝下列軟體（Day 2 會用到）：
 
-必裝：
+必需要有的：
 1. Git: https://git-scm.com/install/windows
 2. GitHub Desktop: https://desktop.github.com/download/ 
-3. Visual Studio Code（VS Code）: https://code.visualstudio.com/Download
-4. Python: https://www.python.org/ftp/python/3.14.2/python-3.14.2-amd64.exe
 
-選裝（彩蛋）：
-5. antigravity（optional）: https://antigravity.google/
+可自行選擇的:
+3. Visual Studio Code: https://code.visualstudio.com/Download
+4. Python: https://www.python.org/ftp/python/3.14.2/python-3.14.2-amd64.exe
+5. antigravity: https://antigravity.google/
 
 ---
 
