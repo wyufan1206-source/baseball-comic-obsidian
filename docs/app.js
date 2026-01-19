@@ -3,9 +3,9 @@ const GITHUB_OWNER = "ycshu";
 const GITHUB_REPO  = "baseball-comic-obsidian";
 const BRANCH       = "main";
 
-// Paths (GitHub Pages uses /docs, data lives one level up)
+// Data lives in repo root; we read it via GitHub Contents API (NOT via relative URLs)
 const STUDENTS_DIR = "data/students";
-const NAME_MAP_REL = "../data/student_name_map.json";
+const NAME_MAP_PATH = "data/student_name_map.json";
 
 // ===== Utilities =====
 function isStudentId(name) {
@@ -23,6 +23,12 @@ async function fetchJson(url) {
   return r.json();
 }
 
+function decodeContent(j) {
+  // GitHub API returns base64 with potential newlines
+  const b64 = (j.content || "").replace(/\n/g, "");
+  return decodeURIComponent(escape(atob(b64)));
+}
+
 function el(id){ return document.getElementById(id); }
 
 // ===== App State =====
@@ -32,10 +38,10 @@ let datasets = []; // { owner, path, data }
 // ===== Loaders =====
 async function loadNameMap(){
   try{
-    const j = await fetchJson(ghApi(NAME_MAP_REL));
-    const raw = atob(j.content);
-    nameMap = JSON.parse(raw);
+    const j = await fetchJson(ghApi(NAME_MAP_PATH));
+    nameMap = JSON.parse(decodeContent(j));
   }catch(e){
+    console.warn("Name map load failed:", e);
     nameMap = {};
   }
 }
@@ -49,8 +55,7 @@ async function scanStudents(){
 async function loadDataset(studentId){
   const path = `${STUDENTS_DIR}/${studentId}/index.json`;
   const j = await fetchJson(ghApi(path));
-  const raw = atob(j.content);
-  const data = JSON.parse(raw);
+  const data = JSON.parse(decodeContent(j));
   return { owner: studentId, path, data };
 }
 
@@ -128,12 +133,15 @@ async function init(){
     for(const id of ids){
       try{
         loaded.push(await loadDataset(id));
-      }catch(e){}
+      }catch(e){
+        console.warn("Dataset load failed:", id, e);
+      }
     }
     datasets = loaded;
     el("status").textContent = `完成載入：${datasets.length} 份可用資料集`;
     renderProviders();
   }catch(e){
+    console.error(e);
     el("status").textContent = "載入失敗";
   }
 }
